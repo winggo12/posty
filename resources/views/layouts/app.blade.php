@@ -23,18 +23,33 @@
             </ul>
 
             <ul class="flex items-center">
-                <li>
-                    <a href="" class="p-4">Louis Rodman    | </a>
-                </li>
-                <li>
-                    <a href="" class="p-3">Login</a>
-                </li>
-                <li>
-                    <a href="" class="p-3">Register</a>
-                </li>
-                <li>
-                    <a href="" class="p-3">Logout</a>
-                </li>
+
+                {{-- @if (auth()->user()) --}}
+                @auth
+
+                    <li>
+                        <a href="" class="p-4">{{ Auth::user()->name }}    | </a>
+                    </li>
+
+                    <li>
+                        <a href="" class="p-3">Logout</a>
+                    </li>
+                @endauth
+
+                
+                {{-- @else --}}
+                @guest
+                    <li>
+                        <a href="{{route('login')}}" class="p-3">Login</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('register') }}" class="p-3">Register</a>
+                    </li>
+                @endguest
+                {{-- @endif --}}
+
+
+
             </ul>
 
 

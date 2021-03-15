@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    //construct is added for preventing a login user to access this page , cause you wont 
+    //need to login again
+    public function __construct()
+    {
+        $this->middleware(['guest']);
+    }
+
     public function index()
     {   
 
@@ -15,7 +22,9 @@ class LoginController extends Controller
     }
 
     public function store(Request $request)
-{           
+    {
+        //dd($request->remember);           
+        
         //validation
         $this->validate($request, [
             'email' => 'required|email|max:255',
@@ -23,7 +32,7 @@ class LoginController extends Controller
 
         ]); 
         
-        if (!Auth::attempt($request->only('email','password'))){
+        if (!Auth::attempt($request->only('email','password'), $request->remember )){
             return back()->with('status', 'Invalid login details');
         }
         //auth()->Auth::attempt($request->only('email','password'));

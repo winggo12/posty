@@ -9,7 +9,7 @@ class Like extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'body'
+        'user_id'
     ];
     public function user()
     {
@@ -20,6 +20,7 @@ class Like extends Model
     {
         return $this->hasMany(Like::class);
     }
+
 }
 
 

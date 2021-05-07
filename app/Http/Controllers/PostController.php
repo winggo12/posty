@@ -21,6 +21,7 @@ class PostController extends Controller
 
         // $posts = Post::where();
         // $posts = Post::find(1);// find by ID
+        $posts = Post::with(['user', 'likes'])->paginate(20);
 
         return view('posts.index', [
             'posts' => $posts
@@ -48,6 +49,13 @@ class PostController extends Controller
 
         $request->user()->posts()->create($request->only('body'));
     
+        return back();
+    }
+
+    public function destroy(Post $post)
+    {
+        // dd($post);
+        $post->delete();
         return back();
     }
 
